@@ -6,6 +6,8 @@ import EditModeToggle from "@/components/edit/EditModeToggle";
 import EditorDrawer from "@/components/edit/EditorDrawer";
 import { getDashboard } from "@/lib/getDashboard";
 
+export const dynamic = "force-dynamic";
+
 const Home = async () => {
   const dashboard = await getDashboard();
   if (!dashboard) {

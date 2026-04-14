@@ -1,0 +1,16 @@
+services:
+  helm:
+    build: .
+    container_name: helm
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - helm-db:/app/prisma
+      - helm-uploads:/app/public/uploads
+    environment:
+      DATABASE_URL: "file:./prisma/main.db"
+
+volumes:
+  helm-db:
+  helm-uploads:
