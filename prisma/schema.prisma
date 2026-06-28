@@ -36,6 +36,29 @@ model Tab {
   sideImage        String
   sideImageAlt     String
   sideImageEdge    String
+  showSideImage    Boolean @default(true)
+  bgColor          String?
+  bgOpacity        Float   @default(1)
+  bgImage          String?
+  borderWidth      Int     @default(0)
+  borderStyle      String  @default("solid")
+  borderColor      String?
+  sectionColumns   Int     @default(1)
+  linkColumns      Int     @default(2)
+  headerTitle      String  @default("")
+  headerVAlign     String  @default("top")
+  headerHAlign     String  @default("center")
+  headerColor      String?
+  headerSize       String  @default("2xl")
+  headerWeight     String  @default("bold")
+  pillBgColor      String?
+  pillBgOpacity    Float   @default(1)
+  pillBgImage      String?
+  pillShowIcon     Boolean @default(true)
+  pillShowTitle    Boolean @default(true)
+  pillTitleColor   String?
+  pillTitleSize    String  @default("sm")
+  pillTitleWeight  String  @default("medium")
   sections         Section[]
 }
 
@@ -46,6 +69,18 @@ model Section {
   title String
   icon  String
   order Int
+  showIcon    Boolean @default(true)
+  showTitle   Boolean @default(true)
+  iconSize    String  @default("sm")
+  titleSize   String  @default("xs")
+  titleWeight String  @default("semibold")
+  titleColor  String?
+  borderWidth Int     @default(0)
+  borderStyle String  @default("solid")
+  borderColor String?
+  bgColor     String?
+  bgOpacity   Float   @default(1)
+  bgImage     String?
   links Link[]
 }
 
@@ -64,6 +99,9 @@ model Link {
   bgColor   String?
   bgOpacity Float   @default(1)
   bgImage   String?
+  borderWidth Int     @default(0)
+  borderStyle String  @default("solid")
+  borderColor String?
   textAlign String  @default("left")
   titleSize   String @default("sm")
   titleWeight String @default("medium")

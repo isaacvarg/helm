@@ -40,6 +40,7 @@ const Bookmark = ({ data }: BookmarkProps) => {
         : "text-left";
   const customColor = data.textColor ?? undefined;
   const textStyle = customColor ? { color: customColor } : undefined;
+  const hasCustomBorder = data.borderWidth > 0;
 
   return (
     <motion.a
@@ -48,11 +49,20 @@ const Bookmark = ({ data }: BookmarkProps) => {
       rel={rel}
       whileHover={{ scale: 1.03, y: -2 }}
       whileTap={{ scale: 0.97 }}
-      className={`group relative overflow-hidden flex gap-3 p-4 rounded-2xl border border-base-content/10 hover:border-base-content/20 transition-colors duration-200 cursor-pointer${
-        showDescription ? " items-start" : " items-center"
-      }${hasCustomBg ? "" : " bg-base-content/5 hover:bg-base-content/10"}${
-        iconOnly ? " justify-center" : ""
-      }`}
+      style={
+        hasCustomBorder
+          ? {
+              borderStyle: data.borderStyle,
+              borderWidth: `${data.borderWidth}px`,
+              borderColor: data.borderColor ?? undefined,
+            }
+          : undefined
+      }
+      className={`group relative overflow-hidden flex gap-3 p-4 rounded-2xl transition-colors duration-200 cursor-pointer${
+        hasCustomBorder ? "" : " border border-base-content/10 hover:border-base-content/20"
+      }${showDescription ? " items-start" : " items-center"}${
+        hasCustomBg ? "" : " bg-base-content/5 hover:bg-base-content/10"
+      }${iconOnly ? " justify-center" : ""}`}
     >
       {data.bgImage && (
         <div

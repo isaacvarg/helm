@@ -25,6 +25,29 @@ export interface TabData {
   sideImage: string;
   sideImageAlt: string;
   sideImageEdge: string;
+  showSideImage: boolean;
+  bgColor: string | null;
+  bgOpacity: number;
+  bgImage: string | null;
+  borderWidth: number;
+  borderStyle: string;
+  borderColor: string | null;
+  sectionColumns: number;
+  linkColumns: number;
+  headerTitle: string;
+  headerVAlign: string;
+  headerHAlign: string;
+  headerColor: string | null;
+  headerSize: string;
+  headerWeight: string;
+  pillBgColor: string | null;
+  pillBgOpacity: number;
+  pillBgImage: string | null;
+  pillShowIcon: boolean;
+  pillShowTitle: boolean;
+  pillTitleColor: string | null;
+  pillTitleSize: string;
+  pillTitleWeight: string;
   sections: SectionData[];
 }
 
@@ -34,6 +57,18 @@ export interface SectionData {
   title: string;
   icon: string;
   order: number;
+  showIcon: boolean;
+  showTitle: boolean;
+  iconSize: string;
+  titleSize: string;
+  titleWeight: string;
+  titleColor: string | null;
+  borderWidth: number;
+  borderStyle: string;
+  borderColor: string | null;
+  bgColor: string | null;
+  bgOpacity: number;
+  bgImage: string | null;
   links: LinkData[];
 }
 
@@ -51,6 +86,9 @@ export interface LinkData {
   bgColor: string | null;
   bgOpacity: number;
   bgImage: string | null;
+  borderWidth: number;
+  borderStyle: string;
+  borderColor: string | null;
   textAlign: string;
   titleSize: string;
   titleWeight: string;

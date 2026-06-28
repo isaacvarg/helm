@@ -10,6 +10,21 @@ interface TabBarProps {
   tabs: TabData[];
 }
 
+const SIZE: Record<string, string> = {
+  xs: "text-xs",
+  sm: "text-sm",
+  base: "text-base",
+  lg: "text-lg",
+  xl: "text-xl",
+};
+
+const WEIGHT: Record<string, string> = {
+  normal: "font-normal",
+  medium: "font-medium",
+  semibold: "font-semibold",
+  bold: "font-bold",
+};
+
 export const TabBar = ({ tabs }: TabBarProps) => {
   const { activeTabId } = useTabBar();
   const { setActiveTab } = useTabBarActions();
@@ -27,6 +42,11 @@ export const TabBar = ({ tabs }: TabBarProps) => {
         <div className="flex items-center gap-2">
           {tabs.map((tab) => {
             const isActive = activeTabId === tab.slug;
+            const showIcon = tab.pillShowIcon;
+            const showTitle = tab.pillShowTitle;
+            // Keep the active-only label expand when an icon is present; when
+            // there's no icon the title must always show so the pill isn't empty.
+            const titleVisible = showTitle && (isActive || !showIcon);
 
             return (
               <div key={tab.id} className="relative group/tab">
@@ -40,21 +60,48 @@ export const TabBar = ({ tabs }: TabBarProps) => {
                   {isActive && (
                     <motion.div
                       layoutId="activeTabBg"
-                      className="absolute inset-0 rounded-full"
-                      style={{
-                        background: `linear-gradient(to right, ${tab.pillGradientFrom}80, ${tab.pillGradientTo}80)`,
-                      }}
+                      className="absolute inset-0 rounded-full overflow-hidden"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
+                    >
+                      {tab.pillBgImage && (
+                        <div
+                          className="absolute inset-0 bg-cover bg-center"
+                          style={{ backgroundImage: `url('${tab.pillBgImage}')` }}
+                        />
+                      )}
+                      {tab.pillBgColor ? (
+                        <div
+                          className="absolute inset-0"
+                          style={{
+                            background: tab.pillBgColor,
+                            opacity: tab.pillBgOpacity,
+                          }}
+                        />
+                      ) : (
+                        !tab.pillBgImage && (
+                          <div
+                            className="absolute inset-0"
+                            style={{
+                              background: `linear-gradient(to right, ${tab.pillGradientFrom}80, ${tab.pillGradientTo}80)`,
+                            }}
+                          />
+                        )
+                      )}
+                    </motion.div>
                   )}
-                  <div className="relative flex items-center gap-2">
-                    <Icon icon={tab.icon} className="w-5 h-5" />
-                    {isActive && (
+                  <div
+                    className="relative flex items-center gap-2"
+                    style={tab.pillTitleColor ? { color: tab.pillTitleColor } : undefined}
+                  >
+                    {showIcon && <Icon icon={tab.icon} className="w-5 h-5" />}
+                    {titleVisible && (
                       <motion.span
                         initial={{ opacity: 0, width: 0 }}
                         animate={{ opacity: 1, width: "auto" }}
                         exit={{ opacity: 0, width: 0 }}
-                        className="text-sm font-medium overflow-hidden whitespace-nowrap "
+                        className={`overflow-hidden whitespace-nowrap ${
+                          SIZE[tab.pillTitleSize] ?? "text-sm"
+                        } ${WEIGHT[tab.pillTitleWeight] ?? "font-medium"}`}
                       >
                         {tab.label}
                       </motion.span>

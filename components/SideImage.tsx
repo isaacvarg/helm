@@ -1,12 +1,14 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
 
 export interface SideImageProps {
   src: string;
   alt?: string;
   edge?: "gradient" | "line";
+  overlay?: ReactNode;
 }
 
-const SideImage = ({ src, alt = "", edge = "gradient" }: SideImageProps) => {
+const SideImage = ({ src, alt = "", edge = "gradient", overlay }: SideImageProps) => {
   return (
     <div className="relative w-1/3 shrink-0">
       <Image
@@ -28,6 +30,7 @@ const SideImage = ({ src, alt = "", edge = "gradient" }: SideImageProps) => {
       {edge === "line" && (
         <div className="absolute inset-y-0 right-0 w-px bg-base-content/10" />
       )}
+      {overlay}
     </div>
   );
 };

@@ -13,6 +13,9 @@ const ContentContainer = ({ tabs }: ContentContainerProps) => {
   const currentTab = tabs.find((t) => t.slug === activeTabId) ?? tabs[0];
   if (!currentTab) return null;
 
+  const hasCustomBg = !!currentTab.bgColor || !!currentTab.bgImage;
+  const hasCustomBorder = currentTab.borderWidth > 0;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -20,7 +23,32 @@ const ContentContainer = ({ tabs }: ContentContainerProps) => {
       transition={{ delay: 0.2 }}
       className="w-full max-w-7xl"
     >
-      <div className="backdrop-blur-xl bg-base-100/40 rounded-3xl border border-base-content/10 shadow-2xl overflow-hidden flex min-h-150">
+      <div
+        className={`relative backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden flex min-h-150 ${
+          hasCustomBg ? "" : "bg-base-100/40"
+        } ${hasCustomBorder ? "" : "border border-base-content/10"}`}
+        style={
+          hasCustomBorder
+            ? {
+                borderStyle: currentTab.borderStyle,
+                borderWidth: `${currentTab.borderWidth}px`,
+                borderColor: currentTab.borderColor ?? undefined,
+              }
+            : undefined
+        }
+      >
+        {currentTab.bgImage && (
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url('${currentTab.bgImage}')` }}
+          />
+        )}
+        {currentTab.bgColor && (
+          <div
+            className="absolute inset-0"
+            style={{ background: currentTab.bgColor, opacity: currentTab.bgOpacity }}
+          />
+        )}
         <AnimatePresence mode="wait">
           <motion.div
             key={currentTab.slug}
@@ -28,7 +56,7 @@ const ContentContainer = ({ tabs }: ContentContainerProps) => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
-            className="flex w-full"
+            className="relative z-10 flex w-full"
           >
             <TabContent tab={currentTab} />
           </motion.div>
