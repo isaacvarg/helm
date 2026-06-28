@@ -10,6 +10,7 @@ const MIME: Record<string, string> = {
   ".gif": "image/gif",
   ".svg": "image/svg+xml",
   ".avif": "image/avif",
+  ".ico": "image/x-icon",
 };
 
 export async function GET(

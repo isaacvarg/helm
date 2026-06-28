@@ -1,7 +1,6 @@
 "use client";
-import { createElement } from "react";
 import { motion } from "motion/react";
-import { resolveIcon } from "@/lib/iconMap";
+import LinkIcon from "../LinkIcon";
 import type { LinkData } from "@/lib/types";
 
 interface BookmarkProps {
@@ -22,7 +21,7 @@ const Bookmark = ({ data }: BookmarkProps) => {
       className="group flex items-start gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-colors duration-200 cursor-pointer"
     >
       <div className="shrink-0 p-2 rounded-xl bg-white/10 text-white/70 group-hover:text-white group-hover:bg-white/15 transition-colors duration-200">
-        {createElement(resolveIcon(data.icon), { className: "w-5 h-5" })}
+        <LinkIcon icon={data.icon} className="w-5 h-5" />
       </div>
       <div className="min-w-0">
         <p className="text-sm font-medium text-white/90 group-hover:text-white truncate">

@@ -86,3 +86,8 @@ export const iconMap: Record<string, IconType> = {
 export const iconNames = Object.keys(iconMap);
 
 export const resolveIcon = (name: string): IconType => iconMap[name] ?? LuBookmark;
+
+// necessary because a icon can be from the map,
+// uploaded image or pulled from the site then uploaded
+
+export const isImageIcon = (name: string): boolean => /^(https?:\/\/|\/|data:)/.test(name);

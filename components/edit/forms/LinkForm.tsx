@@ -73,9 +73,20 @@ const LinkForm = ({ link, sectionId, onDone }: LinkFormProps) => {
           />
         )}
       </form.Field>
-      <form.Field name="icon">
-        {(f) => <IconPicker label="Icon" value={f.state.value} onChange={f.handleChange} />}
-      </form.Field>
+      <form.Subscribe selector={(s) => s.values.href}>
+        {(href) => (
+          <form.Field name="icon">
+            {(f) => (
+              <IconPicker
+                label="Icon"
+                value={f.state.value}
+                onChange={f.handleChange}
+                href={href}
+              />
+            )}
+          </form.Field>
+        )}
+      </form.Subscribe>
       <form.Field name="newTab">
         {(f) => (
           <label className="flex items-center gap-2 text-sm text-white">
