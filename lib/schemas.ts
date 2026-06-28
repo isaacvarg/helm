@@ -46,6 +46,13 @@ export const linkSchema = z
     showIcon: z.boolean(),
     showTitle: z.boolean(),
     showDescription: z.boolean(),
+    bgColor: hex.nullable(),
+    bgOpacity: z.number().min(0).max(1),
+    bgImage: z.string().nullable(),
+    textAlign: z.enum(["left", "center", "right"]),
+    titleSize: z.enum(["xs", "sm", "base", "lg", "xl", "2xl"]),
+    titleWeight: z.enum(["normal", "medium", "semibold", "bold"]),
+    textColor: hex.nullable(),
     order: z.number().int(),
   })
   .refine((v) => v.showIcon || v.showTitle || v.showDescription, {

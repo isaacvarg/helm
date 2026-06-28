@@ -5,6 +5,8 @@ import { upsertLink, deleteLink } from "@/app/actions/dashboard";
 import type { LinkData } from "@/lib/types";
 import TextField from "../fields/TextField";
 import IconPicker from "../fields/IconPicker";
+import ColorField from "../fields/ColorField";
+import ImageField from "../fields/ImageField";
 
 interface LinkFormProps {
   link: LinkData | null;
@@ -24,6 +26,23 @@ const LinkForm = ({ link, sectionId, onDone }: LinkFormProps) => {
       showIcon: link?.showIcon ?? true,
       showTitle: link?.showTitle ?? true,
       showDescription: link?.showDescription ?? true,
+      bgColor: link?.bgColor ?? null,
+      bgOpacity: link?.bgOpacity ?? 1,
+      bgImage: link?.bgImage ?? null,
+      textAlign: (link?.textAlign ?? "left") as "left" | "center" | "right",
+      titleSize: (link?.titleSize ?? "sm") as
+        | "xs"
+        | "sm"
+        | "base"
+        | "lg"
+        | "xl"
+        | "2xl",
+      titleWeight: (link?.titleWeight ?? "medium") as
+        | "normal"
+        | "medium"
+        | "semibold"
+        | "bold",
+      textColor: link?.textColor ?? null,
       order: link?.order ?? 0,
     },
     validators: { onChange: linkSchema },
@@ -161,6 +180,132 @@ const LinkForm = ({ link, sectionId, onDone }: LinkFormProps) => {
             ) : null
           }
         </form.Subscribe>
+        <form.Field name="textAlign">
+          {(f) => (
+            <label className="block space-y-1">
+              <span className="block text-xs text-base-content/60">
+                Text alignment
+              </span>
+              <select
+                value={f.state.value}
+                onChange={(e) =>
+                  f.handleChange(
+                    e.target.value as "left" | "center" | "right",
+                  )
+                }
+                className="select select-bordered select-sm w-full"
+              >
+                <option value="left">Left</option>
+                <option value="center">Center</option>
+                <option value="right">Right</option>
+              </select>
+            </label>
+          )}
+        </form.Field>
+        <form.Field name="titleSize">
+          {(f) => (
+            <label className="block space-y-1">
+              <span className="block text-xs text-base-content/60">
+                Title size
+              </span>
+              <select
+                value={f.state.value}
+                onChange={(e) =>
+                  f.handleChange(e.target.value as typeof f.state.value)
+                }
+                className="select select-bordered select-sm w-full"
+              >
+                <option value="xs">Extra small</option>
+                <option value="sm">Small</option>
+                <option value="base">Base</option>
+                <option value="lg">Large</option>
+                <option value="xl">Extra large</option>
+                <option value="2xl">2X large</option>
+              </select>
+            </label>
+          )}
+        </form.Field>
+        <form.Field name="titleWeight">
+          {(f) => (
+            <label className="block space-y-1">
+              <span className="block text-xs text-base-content/60">
+                Title weight
+              </span>
+              <select
+                value={f.state.value}
+                onChange={(e) =>
+                  f.handleChange(e.target.value as typeof f.state.value)
+                }
+                className="select select-bordered select-sm w-full"
+              >
+                <option value="normal">Normal</option>
+                <option value="medium">Medium</option>
+                <option value="semibold">Semibold</option>
+                <option value="bold">Bold</option>
+              </select>
+            </label>
+          )}
+        </form.Field>
+        <form.Field name="textColor">
+          {(f) => (
+            <div className="space-y-1">
+              <ColorField
+                label="Text color"
+                value={f.state.value ?? ""}
+                onChange={(v) => f.handleChange(v || null)}
+              />
+              {f.state.value && (
+                <button
+                  type="button"
+                  onClick={() => f.handleChange(null)}
+                  className="btn btn-ghost btn-xs"
+                >
+                  Clear text color
+                </button>
+              )}
+            </div>
+          )}
+        </form.Field>
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-sm font-medium text-base-content">Background</p>
+        <form.Field name="bgColor">
+          {(f) => (
+            <ColorField
+              label="Background color"
+              value={f.state.value ?? ""}
+              onChange={(v) => f.handleChange(v || null)}
+            />
+          )}
+        </form.Field>
+        <form.Field name="bgOpacity">
+          {(f) => (
+            <div className="space-y-1">
+              <label className="block text-xs text-base-content/60">
+                Background opacity: {Math.round(f.state.value * 100)}%
+              </label>
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.01}
+                value={f.state.value}
+                onChange={(e) => f.handleChange(parseFloat(e.target.value))}
+                className="range range-primary w-full"
+              />
+            </div>
+          )}
+        </form.Field>
+        <form.Field name="bgImage">
+          {(f) => (
+            <ImageField
+              label="Background image"
+              value={f.state.value ?? ""}
+              onChange={(v) => f.handleChange(v || null)}
+            />
+          )}
+        </form.Field>
       </div>
 
       <div className="flex gap-2">

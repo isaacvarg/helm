@@ -61,5 +61,12 @@ model Link {
   showIcon        Boolean @default(true)
   showTitle       Boolean @default(true)
   showDescription Boolean @default(true)
+  bgColor   String?
+  bgOpacity Float   @default(1)
+  bgImage   String?
+  textAlign String  @default("left")
+  titleSize   String @default("sm")
+  titleWeight String @default("medium")
+  textColor   String?
   order       Int
 }

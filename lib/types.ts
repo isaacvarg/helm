@@ -48,5 +48,12 @@ export interface LinkData {
   showIcon: boolean;
   showTitle: boolean;
   showDescription: boolean;
+  bgColor: string | null;
+  bgOpacity: number;
+  bgImage: string | null;
+  textAlign: string;
+  titleSize: string;
+  titleWeight: string;
+  textColor: string | null;
   order: number;
 }
