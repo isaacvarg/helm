@@ -58,5 +58,8 @@ model Link {
   description String?
   href        String
   newTab      Boolean @default(true)
+  showIcon        Boolean @default(true)
+  showTitle       Boolean @default(true)
+  showDescription Boolean @default(true)
   order       Int
 }

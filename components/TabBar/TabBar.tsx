@@ -32,7 +32,7 @@ export const TabBar = ({ tabs }: TabBarProps) => {
               <div key={tab.id} className="relative group/tab">
                 <motion.button
                   onClick={() => setActiveTab(tab.slug)}
-                  className={`relative px-6 py-3 rounded-full transition-colors duration-300 ${isActive ? "text-base-content" : "text-base-content/50 hover:text-base-content/80"
+                  className={`relative px-6 py-3 rounded-full transition-colors duration-300 ${isActive ? "text-base-content" : "text-base-content hover:text-base-content/80"
                     }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -54,7 +54,7 @@ export const TabBar = ({ tabs }: TabBarProps) => {
                         initial={{ opacity: 0, width: 0 }}
                         animate={{ opacity: 1, width: "auto" }}
                         exit={{ opacity: 0, width: 0 }}
-                        className="text-sm font-medium overflow-hidden whitespace-nowrap text-base-content"
+                        className="text-sm font-medium overflow-hidden whitespace-nowrap "
                       >
                         {tab.label}
                       </motion.span>

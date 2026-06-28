@@ -21,6 +21,9 @@ const LinkForm = ({ link, sectionId, onDone }: LinkFormProps) => {
       description: link?.description ?? "",
       href: link?.href ?? "",
       newTab: link?.newTab ?? true,
+      showIcon: link?.showIcon ?? true,
+      showTitle: link?.showTitle ?? true,
+      showDescription: link?.showDescription ?? true,
       order: link?.order ?? 0,
     },
     validators: { onChange: linkSchema },
@@ -101,6 +104,64 @@ const LinkForm = ({ link, sectionId, onDone }: LinkFormProps) => {
           </label>
         )}
       </form.Field>
+
+      <div className="space-y-2">
+        <p className="text-sm font-medium text-base-content">Display</p>
+        <form.Field name="showIcon">
+          {(f) => (
+            <label className="flex items-center gap-2 text-sm text-base-content">
+              <input
+                type="checkbox"
+                checked={f.state.value}
+                onChange={(e) => f.handleChange(e.target.checked)}
+                className="checkbox checkbox-primary checkbox-sm"
+              />
+              Show icon
+            </label>
+          )}
+        </form.Field>
+        <form.Field name="showTitle">
+          {(f) => (
+            <label className="flex items-center gap-2 text-sm text-base-content">
+              <input
+                type="checkbox"
+                checked={f.state.value}
+                onChange={(e) => f.handleChange(e.target.checked)}
+                className="checkbox checkbox-primary checkbox-sm"
+              />
+              Show title
+            </label>
+          )}
+        </form.Field>
+        <form.Field name="showDescription">
+          {(f) => (
+            <label className="flex items-center gap-2 text-sm text-base-content">
+              <input
+                type="checkbox"
+                checked={f.state.value}
+                onChange={(e) => f.handleChange(e.target.checked)}
+                className="checkbox checkbox-primary checkbox-sm"
+              />
+              Show description
+            </label>
+          )}
+        </form.Field>
+        <form.Subscribe
+          selector={(s) =>
+            !s.values.showIcon &&
+            !s.values.showTitle &&
+            !s.values.showDescription
+          }
+        >
+          {(allHidden) =>
+            allHidden ? (
+              <p className="text-xs text-error">
+                Show at least one of icon, title, or description
+              </p>
+            ) : null
+          }
+        </form.Subscribe>
+      </div>
 
       <div className="flex gap-2">
         <form.Subscribe selector={(s) => [s.canSubmit, s.isSubmitting] as const}>

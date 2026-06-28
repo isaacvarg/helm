@@ -35,15 +35,22 @@ export const sectionSchema = z.object({
   order: z.number().int(),
 });
 
-export const linkSchema = z.object({
-  sectionId: z.number().int(),
-  icon: z.string().min(1),
-  title: z.string().min(1).max(60),
-  description: z.string().max(160),
-  href: z.url(),
-  newTab: z.boolean(),
-  order: z.number().int(),
-});
+export const linkSchema = z
+  .object({
+    sectionId: z.number().int(),
+    icon: z.string().min(1),
+    title: z.string().min(1).max(60),
+    description: z.string().max(160),
+    href: z.url(),
+    newTab: z.boolean(),
+    showIcon: z.boolean(),
+    showTitle: z.boolean(),
+    showDescription: z.boolean(),
+    order: z.number().int(),
+  })
+  .refine((v) => v.showIcon || v.showTitle || v.showDescription, {
+    message: "Show at least one of icon, title, or description",
+  });
 
 export type DashboardInput = z.infer<typeof dashboardSchema>;
 export type TabInput = z.infer<typeof tabSchema>;

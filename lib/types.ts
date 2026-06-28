@@ -45,5 +45,8 @@ export interface LinkData {
   description: string | null;
   href: string;
   newTab: boolean;
+  showIcon: boolean;
+  showTitle: boolean;
+  showDescription: boolean;
   order: number;
 }
