@@ -13,6 +13,7 @@ export const dashboardSchema = z.object({
   bgOverlayVia: hex.nullable(),
   bgOverlayTo: hex,
   bgOverlayOpacity: z.number().min(0).max(1),
+  theme: z.enum(["latte", "frappe", "macchiato", "mocha"]),
 });
 
 export const tabSchema = z.object({

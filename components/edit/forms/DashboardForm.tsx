@@ -6,6 +6,7 @@ import type { DashboardData } from "@/lib/types";
 import TextField from "../fields/TextField";
 import GradientField from "../fields/GradientField";
 import ImageField from "../fields/ImageField";
+import ThemeField from "../fields/ThemeField";
 
 interface DashboardFormProps {
   dashboard: DashboardData;
@@ -25,6 +26,7 @@ const DashboardForm = ({ dashboard, onDone }: DashboardFormProps) => {
       bgOverlayVia: dashboard.bgOverlayVia ?? null,
       bgOverlayTo: dashboard.bgOverlayTo,
       bgOverlayOpacity: dashboard.bgOverlayOpacity ?? 1,
+      theme: (dashboard.theme ?? "mocha") as "latte" | "frappe" | "macchiato" | "mocha",
     },
     validators: { onChange: dashboardSchema },
     onSubmit: async ({ value }) => {
@@ -64,6 +66,16 @@ const DashboardForm = ({ dashboard, onDone }: DashboardFormProps) => {
         )}
       </form.Field>
 
+      <form.Field name="theme">
+        {(f) => (
+          <ThemeField
+            label="UI Theme"
+            value={f.state.value}
+            onChange={(v) => f.handleChange(v as typeof f.state.value)}
+          />
+        )}
+      </form.Field>
+
       <form.Subscribe
         selector={(s) => [s.values.titleGradientFrom, s.values.titleGradientVia, s.values.titleGradientTo] as const}
       >
@@ -88,7 +100,7 @@ const DashboardForm = ({ dashboard, onDone }: DashboardFormProps) => {
           <div>
             <ImageField label="Background image" value={f.state.value} onChange={f.handleChange} />
             {f.state.meta.errors.length > 0 && (
-              <p className="text-xs text-red-400 mt-1">
+              <p className="text-xs text-error mt-1">
                 {typeof f.state.meta.errors[0] === "string" ? f.state.meta.errors[0] : f.state.meta.errors[0]?.message}
               </p>
             )}
@@ -118,7 +130,7 @@ const DashboardForm = ({ dashboard, onDone }: DashboardFormProps) => {
       <form.Field name="bgOverlayOpacity">
         {(f) => (
           <div className="space-y-1">
-            <label className="block text-xs text-white/60">
+            <label className="block text-xs text-base-content/60">
               Overlay opacity: {Math.round(f.state.value * 100)}%
             </label>
             <input
@@ -128,7 +140,7 @@ const DashboardForm = ({ dashboard, onDone }: DashboardFormProps) => {
               step={0.01}
               value={f.state.value}
               onChange={(e) => f.handleChange(parseFloat(e.target.value))}
-              className="w-full"
+              className="range range-primary w-full"
             />
           </div>
         )}
@@ -139,7 +151,7 @@ const DashboardForm = ({ dashboard, onDone }: DashboardFormProps) => {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="w-full px-4 py-2 rounded-lg bg-pink-500 hover:bg-pink-400 text-white font-medium disabled:opacity-50"
+            className="btn btn-primary w-full"
           >
             {isSubmitting ? "Saving…" : "Save"}
           </button>

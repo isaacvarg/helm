@@ -9,7 +9,7 @@ interface IconProps {
 const Icon = ({ icon, className = "w-5 h-5" }: IconProps) => {
   if (isImageIcon(icon)) {
     return (
-      <img src={icon} alt="" className={`${className} object-contain rounded`} />
+      <img src={icon} alt="" className={`${className} object-contain rounded `} />
     );
   }
   return createElement(resolveIcon(icon), { className });

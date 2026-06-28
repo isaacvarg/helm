@@ -28,7 +28,7 @@ const Header = ({ title, subtitle, gradientFrom, gradientVia, gradientTo }: Head
         >
           {title}
         </h1>
-        <p className="text-white/60 text-sm">{subtitle}</p>
+        <p className="text-base-content/60 text-sm">{subtitle}</p>
       </motion.div>
     </EditOverlay>
   );

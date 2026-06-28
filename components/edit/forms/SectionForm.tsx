@@ -56,7 +56,7 @@ const SectionForm = ({ section, tabId, onDone }: SectionFormProps) => {
             <button
               type="submit"
               disabled={!canSubmit}
-              className="flex-1 px-4 py-2 rounded-lg bg-pink-500 hover:bg-pink-400 text-white font-medium disabled:opacity-50"
+              className="btn btn-primary flex-1"
             >
               {isSubmitting ? "Saving…" : "Save"}
             </button>
@@ -71,7 +71,7 @@ const SectionForm = ({ section, tabId, onDone }: SectionFormProps) => {
                 onDone();
               }
             }}
-            className="px-4 py-2 rounded-lg bg-red-500/80 hover:bg-red-500 text-white font-medium"
+            className="btn btn-error"
           >
             Delete
           </button>

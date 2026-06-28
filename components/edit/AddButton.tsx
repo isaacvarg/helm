@@ -17,7 +17,7 @@ const AddButton = ({ target, label, className }: AddButtonProps) => {
     <button
       type="button"
       onClick={() => openEditor(target)}
-      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border-2 border-dashed border-pink-400/50 text-pink-200 hover:bg-pink-400/10 text-xs font-medium ${className ?? ""}`}
+      className={`btn btn-sm btn-outline btn-primary border-dashed rounded-full ${className ?? ""}`}
     >
       <LuPlus className="w-3.5 h-3.5" />
       {label}

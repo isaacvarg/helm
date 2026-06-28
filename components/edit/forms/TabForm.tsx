@@ -92,8 +92,8 @@ const TabForm = ({ tab, onDone }: TabFormProps) => {
       <form.Field name="sideImageEdge">
         {(f) => (
           <div className="space-y-1">
-            <label className="block text-xs text-white/60">Side image edge</label>
-            <div className="flex gap-3 text-sm text-white">
+            <label className="block text-xs text-base-content/60">Side image edge</label>
+            <div className="flex gap-3 text-sm text-base-content">
               {(["gradient", "line"] as const).map((v) => (
                 <label key={v} className="flex items-center gap-1">
                   <input
@@ -101,6 +101,7 @@ const TabForm = ({ tab, onDone }: TabFormProps) => {
                     name="sideImageEdge"
                     checked={f.state.value === v}
                     onChange={() => f.handleChange(v)}
+                    className="radio radio-primary radio-sm"
                   />
                   {v}
                 </label>
@@ -116,7 +117,7 @@ const TabForm = ({ tab, onDone }: TabFormProps) => {
             <button
               type="submit"
               disabled={!canSubmit}
-              className="flex-1 px-4 py-2 rounded-lg bg-pink-500 hover:bg-pink-400 text-white font-medium disabled:opacity-50"
+              className="btn btn-primary flex-1"
             >
               {isSubmitting ? "Saving…" : "Save"}
             </button>
@@ -131,7 +132,7 @@ const TabForm = ({ tab, onDone }: TabFormProps) => {
                 onDone();
               }
             }}
-            className="px-4 py-2 rounded-lg bg-red-500/80 hover:bg-red-500 text-white font-medium"
+            className="btn btn-error"
           >
             Delete
           </button>

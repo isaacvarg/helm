@@ -23,6 +23,7 @@ async function main() {
       bgOverlayFrom: "#581c8766",
       bgOverlayVia: "#831843",
       bgOverlayTo: "#1e3a8a66",
+      theme: "mocha",
     },
   });
 

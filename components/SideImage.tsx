@@ -26,7 +26,7 @@ const SideImage = ({ src, alt = "", edge = "gradient" }: SideImageProps) => {
         }
       />
       {edge === "line" && (
-        <div className="absolute inset-y-0 right-0 w-px bg-white/10" />
+        <div className="absolute inset-y-0 right-0 w-px bg-base-content/10" />
       )}
     </div>
   );

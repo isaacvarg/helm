@@ -20,7 +20,7 @@ const ContentContainer = ({ tabs }: ContentContainerProps) => {
       transition={{ delay: 0.2 }}
       className="w-full max-w-7xl"
     >
-      <div className="backdrop-blur-xl bg-white/5 rounded-3xl border border-white/10 shadow-2xl overflow-hidden flex min-h-150">
+      <div className="backdrop-blur-xl bg-base-100/40 rounded-3xl border border-base-content/10 shadow-2xl overflow-hidden flex min-h-150">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentTab.slug}

@@ -22,19 +22,19 @@ const ColorField = ({ label, value, onChange }: ColorFieldProps) => {
 
   return (
     <div ref={ref} className="relative">
-      {label && <label className="block text-xs text-white/60 mb-1">{label}</label>}
+      {label && <label className="block text-xs text-base-content/60 mb-1">{label}</label>}
       <div className="flex items-center gap-2">
         <button
           type="button"
           onClick={() => setOpen((o) => !o)}
-          className="w-8 h-8 shrink-0 rounded border border-white/20"
+          className="w-8 h-8 shrink-0 rounded border border-base-content/20"
           style={{ background: value }}
         />
         <input
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="flex-1 min-w-0 px-2 py-1 rounded bg-white/5 border border-white/10 text-white text-sm font-mono"
+          className="input input-bordered input-sm flex-1 min-w-0 text-sm font-mono"
         />
       </div>
       {open && (

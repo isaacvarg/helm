@@ -18,9 +18,9 @@ const BookmarkGroup = ({ data }: BookmarkGroupProps) => {
       label="section"
     >
       <div className="space-y-3 p-2">
-        <div className="flex items-center gap-2 text-white/50">
+        <div className="flex items-center gap-2 text-base-content/50">
           <Icon icon={data.icon} className="w-4 h-4" />
-          <h3 className="text-xs font-semibold uppercase tracking-wider">{data.title}</h3>
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-base-content">{data.title}</h3>
         </div>
         <div className="grid grid-cols-2 gap-2">
           {data.links.map((link) => (

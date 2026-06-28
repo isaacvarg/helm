@@ -19,7 +19,7 @@ const EditOverlay = ({ target, onDelete, label, children, className }: EditOverl
 
   return (
     <div className={`relative group/edit ${className ?? ""}`}>
-      <div className="pointer-events-none absolute inset-0 rounded-xl border-2 border-dashed border-pink-400/0 group-hover/edit:border-pink-400/70 transition-colors z-10" />
+      <div className="pointer-events-none absolute inset-0 rounded-xl border-2 border-dashed border-primary/0 group-hover/edit:border-primary/70 transition-colors z-10" />
       <div className="absolute -top-3 -right-3 flex gap-1 opacity-0 group-hover/edit:opacity-100 transition-opacity z-20">
         <button
           type="button"
@@ -28,7 +28,7 @@ const EditOverlay = ({ target, onDelete, label, children, className }: EditOverl
             e.stopPropagation();
             openEditor(target);
           }}
-          className="p-1.5 rounded-full bg-pink-500 text-white shadow-lg hover:bg-pink-400"
+          className="btn btn-primary btn-circle btn-sm shadow-lg"
           title={label ? `Edit ${label}` : "Edit"}
         >
           <LuPencil className="w-3.5 h-3.5" />
@@ -41,7 +41,7 @@ const EditOverlay = ({ target, onDelete, label, children, className }: EditOverl
               e.stopPropagation();
               if (confirm(`Delete this ${label ?? "item"}?`)) onDelete();
             }}
-            className="p-1.5 rounded-full bg-red-500 text-white shadow-lg hover:bg-red-400"
+            className="btn btn-error btn-circle btn-sm shadow-lg"
             title={label ? `Delete ${label}` : "Delete"}
           >
             <LuTrash2 className="w-3.5 h-3.5" />

@@ -19,6 +19,7 @@ model Dashboard {
   bgOverlayVia      String?
   bgOverlayTo       String
   bgOverlayOpacity  Float   @default(1)
+  theme             String  @default("mocha")
   tabs              Tab[]
 }
 

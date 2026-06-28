@@ -67,7 +67,9 @@ const IconPicker = ({
       type="button"
       onClick={() => setMode(m)}
       className={`flex-1 px-2 py-1 rounded text-xs transition-colors ${
-        activeMode === m ? "bg-pink-500 text-white" : "text-white/60 hover:bg-white/10"
+        activeMode === m
+          ? "bg-primary text-primary-content"
+          : "text-base-content/60 hover:bg-base-content/10"
       }`}
     >
       {text}
@@ -79,16 +81,16 @@ const IconPicker = ({
 
   return (
     <div className="space-y-2">
-      {label && <label className="block text-xs text-white/60">{label}</label>}
+      {label && <label className="block text-xs text-base-content/60">{label}</label>}
 
-      <div className="flex items-center gap-2 px-2 py-1 rounded bg-white/5 border border-white/10">
-        <Icon icon={value} className="w-5 h-5 text-white" />
-        <span className="flex-1 text-xs text-white/40 font-mono truncate">
+      <div className="flex items-center gap-2 px-2 py-1 rounded bg-base-200 border border-base-content/10">
+        <Icon icon={value} className="w-5 h-5 text-base-content" />
+        <span className="flex-1 text-xs text-base-content/40 font-mono truncate">
           {value}
         </span>
       </div>
 
-      <div className="flex gap-1 p-1 rounded bg-white/5 border border-white/10">
+      <div className="flex gap-1 p-1 rounded bg-base-200 border border-base-content/10">
         {tab("icons", "Icons")}
         {tab("upload", "Upload")}
         {allowWebsite && tab("website", "Website")}
@@ -101,9 +103,9 @@ const IconPicker = ({
             placeholder="Search icons…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full px-2 py-1.5 rounded bg-white/5 border border-white/10 text-white text-sm outline-none"
+            className="input input-bordered w-full text-sm"
           />
-          <div className="grid grid-cols-8 gap-1 max-h-48 overflow-y-auto p-1 rounded bg-white/5 border border-white/10">
+          <div className="grid grid-cols-8 gap-1 max-h-48 overflow-y-auto p-1 rounded bg-base-200 border border-base-content/10">
             {filtered.map((name) => {
               const active = name === value;
               return (
@@ -113,7 +115,9 @@ const IconPicker = ({
                   onClick={() => onChange(name)}
                   title={name}
                   className={`flex items-center justify-center p-2 rounded transition-colors ${
-                    active ? "bg-pink-500 text-white" : "text-white/70 hover:bg-white/10"
+                    active
+                      ? "bg-primary text-primary-content"
+                      : "text-base-content/70 hover:bg-base-content/10"
                   }`}
                 >
                   <Icon icon={name} className="w-4 h-4" />
@@ -134,23 +138,23 @@ const IconPicker = ({
             type="button"
             onClick={fetchFromSite}
             disabled={!hrefValid || fetching}
-            className="flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-white text-sm hover:bg-white/20 disabled:opacity-50"
+            className="btn btn-sm"
           >
             <LuGlobe className="w-4 h-4" />
             {fetching ? "Fetching…" : "Fetch icon from site"}
           </button>
           {!hrefValid && (
-            <p className="text-xs text-white/40">
+            <p className="text-xs text-base-content/40">
               Enter a valid URL above to fetch its icon.
             </p>
           )}
-          {error && <p className="text-xs text-red-400">{error}</p>}
+          {error && <p className="text-xs text-error">{error}</p>}
           {isImageIcon(value) && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={value}
               alt=""
-              className="max-h-24 rounded border border-white/10"
+              className="max-h-24 rounded border border-base-content/10"
             />
           )}
         </div>

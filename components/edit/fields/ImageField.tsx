@@ -32,20 +32,20 @@ const ImageField = ({ label, value, onChange }: ImageFieldProps) => {
 
   return (
     <div className="space-y-2">
-      {label && <label className="block text-xs text-white/60">{label}</label>}
+      {label && <label className="block text-xs text-base-content/60">{label}</label>}
       <div className="flex items-center gap-2">
         <input
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder="https://… or /uploads/…"
-          className="flex-1 px-2 py-1.5 rounded bg-white/5 border border-white/10 text-white text-sm"
+          className="input input-bordered flex-1 text-sm"
         />
         <button
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={uploading}
-          className="flex items-center gap-1 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-white text-sm hover:bg-white/20 disabled:opacity-50"
+          className="btn btn-sm"
         >
           <LuUpload className="w-4 h-4" />
           {uploading ? "…" : "Upload"}
@@ -63,9 +63,9 @@ const ImageField = ({ label, value, onChange }: ImageFieldProps) => {
       </div>
       {value && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={value} alt="" className="max-h-24 rounded border border-white/10" />
+        <img src={value} alt="" className="max-h-24 rounded border border-base-content/10" />
       )}
-      {error && <p className="text-xs text-red-400">{error}</p>}
+      {error && <p className="text-xs text-error">{error}</p>}
     </div>
   );
 };

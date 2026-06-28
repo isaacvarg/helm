@@ -10,6 +10,7 @@ export interface DashboardData {
   bgOverlayVia: string | null;
   bgOverlayTo: string;
   bgOverlayOpacity: number;
+  theme: string;
   tabs: TabData[];
 }
 

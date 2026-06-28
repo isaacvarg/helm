@@ -17,7 +17,7 @@ const TextField = ({ label, value, onChange, onBlur, errors, textarea, placehold
     .filter((m): m is string => Boolean(m));
   return (
     <div className="space-y-1">
-      <label className="block text-xs text-white/60">{label}</label>
+      <label className="block text-xs text-base-content/60">{label}</label>
       {textarea ? (
         <textarea
           value={value}
@@ -25,7 +25,7 @@ const TextField = ({ label, value, onChange, onBlur, errors, textarea, placehold
           onBlur={onBlur}
           placeholder={placeholder}
           rows={3}
-          className="w-full px-2 py-1.5 rounded bg-white/5 border border-white/10 text-white text-sm"
+          className="textarea textarea-bordered w-full text-sm"
         />
       ) : (
         <input
@@ -34,10 +34,10 @@ const TextField = ({ label, value, onChange, onBlur, errors, textarea, placehold
           onChange={(e) => onChange(e.target.value)}
           onBlur={onBlur}
           placeholder={placeholder}
-          className="w-full px-2 py-1.5 rounded bg-white/5 border border-white/10 text-white text-sm"
+          className="input input-bordered w-full text-sm"
         />
       )}
-      {errMsgs.length > 0 && <p className="text-xs text-red-400">{errMsgs[0]}</p>}
+      {errMsgs.length > 0 && <p className="text-xs text-error">{errMsgs[0]}</p>}
     </div>
   );
 };

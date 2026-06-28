@@ -14,8 +14,8 @@ const Home = async () => {
   const dashboard = await getDashboard();
   if (!dashboard) {
     return (
-      <div className="flex min-h-screen items-center justify-center text-white/70">
-        No dashboard found. Run <code className="mx-2 px-2 py-1 bg-white/10 rounded">pnpm db:seed</code>.
+      <div className="flex min-h-screen items-center justify-center text-base-content/70">
+        No dashboard found. Run <code className="mx-2 px-2 py-1 bg-base-200 rounded">pnpm db:seed</code>.
       </div>
     );
   }

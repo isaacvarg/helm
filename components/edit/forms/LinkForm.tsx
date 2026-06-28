@@ -90,11 +90,12 @@ const LinkForm = ({ link, sectionId, onDone }: LinkFormProps) => {
       </form.Subscribe>
       <form.Field name="newTab">
         {(f) => (
-          <label className="flex items-center gap-2 text-sm text-white">
+          <label className="flex items-center gap-2 text-sm text-base-content">
             <input
               type="checkbox"
               checked={f.state.value}
               onChange={(e) => f.handleChange(e.target.checked)}
+              className="checkbox checkbox-primary checkbox-sm"
             />
             Open in new tab
           </label>
@@ -107,7 +108,7 @@ const LinkForm = ({ link, sectionId, onDone }: LinkFormProps) => {
             <button
               type="submit"
               disabled={!canSubmit}
-              className="flex-1 px-4 py-2 rounded-lg bg-pink-500 hover:bg-pink-400 text-white font-medium disabled:opacity-50"
+              className="btn btn-primary flex-1"
             >
               {isSubmitting ? "Saving…" : "Save"}
             </button>
@@ -122,7 +123,7 @@ const LinkForm = ({ link, sectionId, onDone }: LinkFormProps) => {
                 onDone();
               }
             }}
-            className="px-4 py-2 rounded-lg bg-red-500/80 hover:bg-red-500 text-white font-medium"
+            className="btn btn-error"
           >
             Delete
           </button>

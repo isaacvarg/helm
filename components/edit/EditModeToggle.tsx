@@ -10,10 +10,9 @@ const EditModeToggle = () => {
     <button
       type="button"
       onClick={toggleEdit}
-      className="fixed top-6 right-6 z-30 flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-xl border border-white/20 shadow-2xl text-white text-sm font-medium transition-colors"
-      style={{
-        background: isEditing ? "rgba(236,72,153,0.35)" : "rgba(255,255,255,0.1)",
-      }}
+      className={`btn btn-sm rounded-full fixed top-6 right-6 z-30 backdrop-blur-xl shadow-2xl ${
+        isEditing ? "btn-primary" : "btn-ghost bg-base-100/30 border border-base-content/20"
+      }`}
     >
       {isEditing ? <LuCheck className="w-4 h-4" /> : <LuPencil className="w-4 h-4" />}
       {isEditing ? "Done" : "Edit"}
