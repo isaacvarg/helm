@@ -1,7 +1,6 @@
 "use client";
-import { createElement } from "react";
 import Bookmark from "./Bookmark";
-import { resolveIcon } from "@/lib/iconMap";
+import Icon from "../Icon";
 import { deleteSection } from "@/app/actions/dashboard";
 import EditOverlay from "../edit/EditOverlay";
 import AddButton from "../edit/AddButton";
@@ -20,7 +19,7 @@ const BookmarkGroup = ({ data }: BookmarkGroupProps) => {
     >
       <div className="space-y-3 p-2">
         <div className="flex items-center gap-2 text-white/50">
-          {createElement(resolveIcon(data.icon), { className: "w-4 h-4" })}
+          <Icon icon={data.icon} className="w-4 h-4" />
           <h3 className="text-xs font-semibold uppercase tracking-wider">{data.title}</h3>
         </div>
         <div className="grid grid-cols-2 gap-2">

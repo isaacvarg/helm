@@ -82,6 +82,7 @@ const LinkForm = ({ link, sectionId, onDone }: LinkFormProps) => {
                 value={f.state.value}
                 onChange={f.handleChange}
                 href={href}
+                allowWebsite
               />
             )}
           </form.Field>

@@ -2,7 +2,7 @@
 import { useState, useMemo } from "react";
 import { LuGlobe } from "react-icons/lu";
 import { iconNames, isImageIcon } from "@/lib/iconMap";
-import LinkIcon from "@/components/LinkIcon";
+import Icon from "@/components/Icon";
 import ImageField from "./ImageField";
 
 interface IconPickerProps {
@@ -10,6 +10,7 @@ interface IconPickerProps {
   value: string;
   onChange: (name: string) => void;
   href?: string;
+  allowWebsite?: boolean;
 }
 
 type Mode = "icons" | "upload" | "website";
@@ -23,7 +24,13 @@ const isValidHttpUrl = (url: string): boolean => {
   }
 };
 
-const IconPicker = ({ label, value, onChange, href = "" }: IconPickerProps) => {
+const IconPicker = ({
+  label,
+  value,
+  onChange,
+  href = "",
+  allowWebsite = false,
+}: IconPickerProps) => {
   const [mode, setMode] = useState<Mode>(() =>
     isImageIcon(value) ? "upload" : "icons",
   );
@@ -60,7 +67,7 @@ const IconPicker = ({ label, value, onChange, href = "" }: IconPickerProps) => {
       type="button"
       onClick={() => setMode(m)}
       className={`flex-1 px-2 py-1 rounded text-xs transition-colors ${
-        mode === m ? "bg-pink-500 text-white" : "text-white/60 hover:bg-white/10"
+        activeMode === m ? "bg-pink-500 text-white" : "text-white/60 hover:bg-white/10"
       }`}
     >
       {text}
@@ -68,13 +75,14 @@ const IconPicker = ({ label, value, onChange, href = "" }: IconPickerProps) => {
   );
 
   const hrefValid = isValidHttpUrl(href);
+  const activeMode = mode === "website" && !allowWebsite ? "icons" : mode;
 
   return (
     <div className="space-y-2">
       {label && <label className="block text-xs text-white/60">{label}</label>}
 
       <div className="flex items-center gap-2 px-2 py-1 rounded bg-white/5 border border-white/10">
-        <LinkIcon icon={value} className="w-5 h-5 text-white" />
+        <Icon icon={value} className="w-5 h-5 text-white" />
         <span className="flex-1 text-xs text-white/40 font-mono truncate">
           {value}
         </span>
@@ -83,10 +91,10 @@ const IconPicker = ({ label, value, onChange, href = "" }: IconPickerProps) => {
       <div className="flex gap-1 p-1 rounded bg-white/5 border border-white/10">
         {tab("icons", "Icons")}
         {tab("upload", "Upload")}
-        {tab("website", "Website")}
+        {allowWebsite && tab("website", "Website")}
       </div>
 
-      {mode === "icons" && (
+      {activeMode === "icons" && (
         <div className="space-y-2">
           <input
             type="text"
@@ -108,7 +116,7 @@ const IconPicker = ({ label, value, onChange, href = "" }: IconPickerProps) => {
                     active ? "bg-pink-500 text-white" : "text-white/70 hover:bg-white/10"
                   }`}
                 >
-                  <LinkIcon icon={name} className="w-4 h-4" />
+                  <Icon icon={name} className="w-4 h-4" />
                 </button>
               );
             })}
@@ -116,11 +124,11 @@ const IconPicker = ({ label, value, onChange, href = "" }: IconPickerProps) => {
         </div>
       )}
 
-      {mode === "upload" && (
+      {activeMode === "upload" && (
         <ImageField value={isImageIcon(value) ? value : ""} onChange={onChange} />
       )}
 
-      {mode === "website" && (
+      {activeMode === "website" && (
         <div className="space-y-2">
           <button
             type="button"

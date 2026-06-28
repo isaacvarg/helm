@@ -1,7 +1,6 @@
 "use client";
-import { createElement } from "react";
 import { useTabBar, useTabBarActions } from "@/store/tabBarSlice";
-import { resolveIcon } from "@/lib/iconMap";
+import Icon from "@/components/Icon";
 import { motion } from "motion/react";
 import { useEditMode, useEditModeActions } from "@/store/editModeSlice";
 import { LuPencil, LuPlus } from "react-icons/lu";
@@ -50,7 +49,7 @@ export const TabBar = ({ tabs }: TabBarProps) => {
                     />
                   )}
                   <div className="relative flex items-center gap-2">
-                    {createElement(resolveIcon(tab.icon), { className: "w-5 h-5" })}
+                    <Icon icon={tab.icon} className="w-5 h-5" />
                     {isActive && (
                       <motion.span
                         initial={{ opacity: 0, width: 0 }}
