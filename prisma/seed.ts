@@ -29,13 +29,15 @@ async function main() {
   const tabsSeed = [
     {
       slug: "home", label: "Home", icon: "LuHouse", order: 0,
-      pillGradientFrom: "#ec4899", pillGradientTo: "#a855f7",
+      pillGradientFrom: "#ec4898", pillGradientTo: "#a855f7",
       sideImage: "https://picsum.photos/seed/home/800/1200", sideImageAlt: "Home", sideImageEdge: "gradient",
       sections: [
-        { title: "Productivity", icon: "LuCalendar", order: 0, links: [
-          { icon: "LuMail", title: "Gmail", description: "Email & communication", href: "https://mail.google.com", newTab: true, order: 0 },
-          { icon: "LuCalendar", title: "Google Calendar", description: "Schedule & events", href: "https://calendar.google.com", newTab: true, order: 1 },
-        ]},
+        {
+          title: "Productivity", icon: "LuCalendar", order: 0, links: [
+            { icon: "LuMail", title: "Gmail", description: "Email & communication", href: "https://mail.google.com", newTab: true, order: 0 },
+            { icon: "LuCalendar", title: "Google Calendar", description: "Schedule & events", href: "https://calendar.google.com", newTab: true, order: 1 },
+          ]
+        },
       ],
     },
     {
@@ -43,12 +45,16 @@ async function main() {
       pillGradientFrom: "#ec4899", pillGradientTo: "#a855f7",
       sideImage: "https://picsum.photos/seed/fun/800/1200", sideImageAlt: "Entertainment", sideImageEdge: "gradient",
       sections: [
-        { title: "Media", icon: "LuTv", order: 0, links: [
-          { icon: "LuVideo", title: "YouTube", description: "Videos & creators", href: "https://youtube.com", newTab: true, order: 0 },
-        ]},
-        { title: "Gaming", icon: "LuGamepad2", order: 1, links: [
-          { icon: "LuGamepad2", title: "Chess.com", description: "Online chess", href: "https://chess.com", newTab: true, order: 0 },
-        ]},
+        {
+          title: "Media", icon: "LuTv", order: 0, links: [
+            { icon: "LuVideo", title: "YouTube", description: "Videos & creators", href: "https://youtube.com", newTab: true, order: 0 },
+          ]
+        },
+        {
+          title: "Gaming", icon: "LuGamepad2", order: 1, links: [
+            { icon: "LuGamepad2", title: "Chess.com", description: "Online chess", href: "https://chess.com", newTab: true, order: 0 },
+          ]
+        },
       ],
     },
   ];

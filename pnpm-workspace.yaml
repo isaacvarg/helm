@@ -7,6 +7,7 @@ allowBuilds:
   sqlite3: true
   unrs-resolver: true
 
+
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver

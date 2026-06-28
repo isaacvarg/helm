@@ -9,6 +9,7 @@ interface BackgroundProps {
   children: React.ReactNode;
 }
 
+
 const Background = ({ image, overlayFrom, overlayVia, overlayTo, overlayOpacity, children }: BackgroundProps) => {
   const stops = overlayVia
     ? `${overlayFrom}, ${overlayVia}, ${overlayTo}`

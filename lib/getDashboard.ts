@@ -1,6 +1,7 @@
 import { prisma } from "./prisma";
 import type { DashboardData } from "./types";
 
+
 export async function getDashboard(): Promise<DashboardData | null> {
   const row = await prisma.dashboard.findFirst({
     where: { id: 1 },

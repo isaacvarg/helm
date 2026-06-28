@@ -1,5 +1,6 @@
 import { create } from "zustand";
 
+
 export type EditorTarget =
   | { type: "dashboard" }
   | { type: "tab"; id: number | null; tabId?: number }
