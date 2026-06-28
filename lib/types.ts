@@ -11,6 +11,21 @@ export interface DashboardData {
   bgOverlayTo: string;
   bgOverlayOpacity: number;
   theme: string;
+  showTitle: boolean;
+  showSubtitle: boolean;
+  titleColor: string | null;
+  backgroundBlur: number;
+  tabBarPosition: string;
+  settingsShowIcon: boolean;
+  settingsShowTitle: boolean;
+  settingsButtonType: string;
+  settingsButtonSize: string;
+  settingsBorderWidth: number;
+  settingsBorderStyle: string;
+  settingsBorderColor: string | null;
+  settingsBgColor: string | null;
+  settingsBgOpacity: number;
+  settingsBgImage: string | null;
   tabs: TabData[];
 }
 

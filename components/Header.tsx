@@ -8,9 +8,21 @@ interface HeaderProps {
   gradientFrom: string;
   gradientVia?: string | null;
   gradientTo: string;
+  showTitle?: boolean;
+  showSubtitle?: boolean;
+  titleColor?: string | null;
 }
 
-const Header = ({ title, subtitle, gradientFrom, gradientVia, gradientTo }: HeaderProps) => {
+const Header = ({
+  title,
+  subtitle,
+  gradientFrom,
+  gradientVia,
+  gradientTo,
+  showTitle = true,
+  showSubtitle = true,
+  titleColor,
+}: HeaderProps) => {
   const stops = gradientVia
     ? `${gradientFrom}, ${gradientVia}, ${gradientTo}`
     : `${gradientFrom}, ${gradientTo}`;
@@ -22,13 +34,23 @@ const Header = ({ title, subtitle, gradientFrom, gradientVia, gradientTo }: Head
         animate={{ opacity: 1, y: 0 }}
         className="mb-8 text-center px-6 py-2"
       >
-        <h1
-          className="text-5xl font-bold mb-2 bg-clip-text text-transparent"
-          style={{ backgroundImage: `linear-gradient(to right, ${stops})` }}
-        >
-          {title}
-        </h1>
-        <p className="text-base-content/60 text-sm">{subtitle}</p>
+        {showTitle && (
+          <h1
+            className={`text-5xl font-bold mb-2 ${
+              titleColor ? "" : "bg-clip-text text-transparent"
+            }`}
+            style={
+              titleColor
+                ? { color: titleColor }
+                : { backgroundImage: `linear-gradient(to right, ${stops})` }
+            }
+          >
+            {title}
+          </h1>
+        )}
+        {showSubtitle && (
+          <p className="text-base-content/60 text-sm">{subtitle}</p>
+        )}
       </motion.div>
     </EditOverlay>
   );

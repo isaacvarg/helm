@@ -2,19 +2,38 @@ import { z } from "zod";
 
 const hex = z.string().regex(/^#([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/, "Must be a hex color like #a1b2c3");
 
-export const dashboardSchema = z.object({
-  title: z.string().min(1).max(120),
-  subtitle: z.string().max(240),
-  titleGradientFrom: hex,
-  titleGradientVia: hex.nullable(),
-  titleGradientTo: hex,
-  backgroundImage: z.string().min(1),
-  bgOverlayFrom: hex,
-  bgOverlayVia: hex.nullable(),
-  bgOverlayTo: hex,
-  bgOverlayOpacity: z.number().min(0).max(1),
-  theme: z.enum(["latte", "frappe", "macchiato", "mocha"]),
-});
+export const dashboardSchema = z
+  .object({
+    title: z.string().min(1).max(120),
+    subtitle: z.string().max(240),
+    titleGradientFrom: hex,
+    titleGradientVia: hex.nullable(),
+    titleGradientTo: hex,
+    backgroundImage: z.string().min(1),
+    bgOverlayFrom: hex,
+    bgOverlayVia: hex.nullable(),
+    bgOverlayTo: hex,
+    bgOverlayOpacity: z.number().min(0).max(1),
+    theme: z.enum(["latte", "frappe", "macchiato", "mocha"]),
+    showTitle: z.boolean(),
+    showSubtitle: z.boolean(),
+    titleColor: hex.nullable(),
+    backgroundBlur: z.number().int().min(0).max(30),
+    tabBarPosition: z.enum(["bottom", "top", "left", "right"]),
+    settingsShowIcon: z.boolean(),
+    settingsShowTitle: z.boolean(),
+    settingsButtonType: z.enum(["solid", "outline", "ghost", "soft", "link"]),
+    settingsButtonSize: z.enum(["xs", "sm", "md", "lg"]),
+    settingsBorderWidth: z.number().int().min(0).max(8),
+    settingsBorderStyle: z.enum(["solid", "dashed", "dotted", "double"]),
+    settingsBorderColor: hex.nullable(),
+    settingsBgColor: hex.nullable(),
+    settingsBgOpacity: z.number().min(0).max(1),
+    settingsBgImage: z.string().nullable(),
+  })
+  .refine((v) => v.settingsShowIcon || v.settingsShowTitle, {
+    message: "Show the settings icon or title",
+  });
 
 export const tabSchema = z.object({
   slug: z.string().min(1).regex(/^[a-z0-9-]+$/, "lowercase letters, digits, dashes only"),

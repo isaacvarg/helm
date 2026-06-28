@@ -20,6 +20,21 @@ model Dashboard {
   bgOverlayTo       String
   bgOverlayOpacity  Float   @default(1)
   theme             String  @default("mocha")
+  showTitle           Boolean @default(true)
+  showSubtitle        Boolean @default(true)
+  titleColor          String?
+  backgroundBlur      Int     @default(5)
+  tabBarPosition      String  @default("bottom")
+  settingsShowIcon    Boolean @default(true)
+  settingsShowTitle   Boolean @default(true)
+  settingsButtonType  String  @default("ghost")
+  settingsButtonSize  String  @default("sm")
+  settingsBorderWidth Int     @default(0)
+  settingsBorderStyle String  @default("solid")
+  settingsBorderColor String?
+  settingsBgColor     String?
+  settingsBgOpacity   Float   @default(1)
+  settingsBgImage     String?
   tabs              Tab[]
 }
 

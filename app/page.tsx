@@ -20,6 +20,13 @@ const Home = async () => {
     );
   }
 
+  const padByPosition: Record<string, string> = {
+    bottom: "pb-32",
+    top: "pt-32",
+    left: "pl-32",
+    right: "pr-32",
+  };
+
   return (
     <Background
       image={dashboard.backgroundImage}
@@ -27,19 +34,27 @@ const Home = async () => {
       overlayVia={dashboard.bgOverlayVia}
       overlayTo={dashboard.bgOverlayTo}
       overlayOpacity={dashboard.bgOverlayOpacity}
+      blur={dashboard.backgroundBlur}
     >
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-8 pb-32">
+      <div
+        className={`relative z-10 flex flex-col items-center justify-center min-h-screen p-8 ${
+          padByPosition[dashboard.tabBarPosition] ?? "pb-32"
+        }`}
+      >
         <Header
           title={dashboard.title}
           subtitle={dashboard.subtitle}
           gradientFrom={dashboard.titleGradientFrom}
           gradientVia={dashboard.titleGradientVia}
           gradientTo={dashboard.titleGradientTo}
+          showTitle={dashboard.showTitle}
+          showSubtitle={dashboard.showSubtitle}
+          titleColor={dashboard.titleColor}
         />
         <ContentContainer tabs={dashboard.tabs} />
-        <Tabs tabs={dashboard.tabs} />
+        <Tabs tabs={dashboard.tabs} position={dashboard.tabBarPosition} />
       </div>
-      <EditModeToggle />
+      <EditModeToggle dashboard={dashboard} />
       <EditorDrawer dashboard={dashboard} />
     </Background>
   );

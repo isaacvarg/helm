@@ -8,7 +8,15 @@ import type { TabData } from "@/lib/types";
 
 interface TabBarProps {
   tabs: TabData[];
+  position?: string;
 }
+
+const POS: Record<string, string> = {
+  bottom: "left-1/2 bottom-8 -translate-x-1/2",
+  top: "left-1/2 top-8 -translate-x-1/2",
+  left: "top-1/2 left-8 -translate-y-1/2",
+  right: "top-1/2 right-8 -translate-y-1/2",
+};
 
 const SIZE: Record<string, string> = {
   xs: "text-xs",
@@ -25,21 +33,22 @@ const WEIGHT: Record<string, string> = {
   bold: "font-bold",
 };
 
-export const TabBar = ({ tabs }: TabBarProps) => {
+export const TabBar = ({ tabs, position = "bottom" }: TabBarProps) => {
   const { activeTabId } = useTabBar();
   const { setActiveTab } = useTabBarActions();
   const isEditing = useEditMode((s) => s.isEditing);
   const { openEditor } = useEditModeActions();
+  const vertical = position === "left" || position === "right";
 
   return (
-    <div className="fixed left-1/2 bottom-8 -translate-x-1/2 z-20">
+    <div className={`fixed z-20 ${POS[position] ?? POS.bottom}`}>
       <motion.div
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
         className="backdrop-blur-xl bg-base-100/40 rounded-full border border-base-content/20 shadow-2xl px-2 py-2"
       >
-        <div className="flex items-center gap-2">
+        <div className={`flex gap-2 ${vertical ? "flex-col" : "items-center"}`}>
           {tabs.map((tab) => {
             const isActive = activeTabId === tab.slug;
             const showIcon = tab.pillShowIcon;
