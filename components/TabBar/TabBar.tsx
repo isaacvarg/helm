@@ -1,5 +1,6 @@
 "use client";
 import { useTabBar, useTabBarActions } from "@/store/tabBarSlice";
+import { useHotkeys } from "react-hotkeys-hook";
 import Icon from "@/components/Icon";
 import { motion } from "motion/react";
 import { useEditMode, useEditModeActions } from "@/store/editModeSlice";
@@ -39,6 +40,31 @@ export const TabBar = ({ tabs, position = "bottom" }: TabBarProps) => {
   const isEditing = useEditMode((s) => s.isEditing);
   const { openEditor } = useEditModeActions();
   const vertical = position === "left" || position === "right";
+
+  // Cycle tabs with Tab / Shift+Tab, overriding the browser's default focus
+  // traversal. Wraps around at either end.
+  const cycleTab = (direction: 1 | -1) => {
+    if (tabs.length === 0) return;
+    const currentIndex = tabs.findIndex((t) => t.slug === activeTabId);
+    // If the active tab isn't found, start from the first tab.
+    const nextIndex =
+      (currentIndex + direction + tabs.length) % tabs.length;
+    setActiveTab(tabs[nextIndex].slug);
+  };
+
+  useHotkeys(
+    "tab",
+    () => cycleTab(1),
+    { preventDefault: true, enableOnFormTags: false },
+    [tabs, activeTabId]
+  );
+
+  useHotkeys(
+    "shift+tab",
+    () => cycleTab(-1),
+    { preventDefault: true, enableOnFormTags: false },
+    [tabs, activeTabId]
+  );
 
   return (
     <div className={`fixed z-20 ${POS[position] ?? POS.bottom}`}>
