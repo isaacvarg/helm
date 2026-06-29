@@ -1,6 +1,6 @@
 services:
   helm:
-    build: .
+    image: ghcr.io/isaacvarg/helm:latest
     container_name: helm
     restart: unless-stopped
     ports:
