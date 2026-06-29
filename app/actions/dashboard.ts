@@ -10,8 +10,29 @@ export async function updateDashboard(input: DashboardInput) {
   revalidatePath("/");
 }
 
+async function assertShortcutKeyFree(
+  key: string,
+  exclude: { tabId?: number; linkId?: number },
+) {
+  if (!key) return;
+  const k = key.toLowerCase();
+  const [tabs, links] = await Promise.all([
+    prisma.tab.findMany({ select: { id: true, shortcutKey: true } }),
+    prisma.link.findMany({ select: { id: true, shortcutKey: true } }),
+  ]);
+  const clash =
+    tabs.some(
+      (t) => t.id !== exclude.tabId && t.shortcutKey.toLowerCase() === k,
+    ) ||
+    links.some(
+      (l) => l.id !== exclude.linkId && l.shortcutKey.toLowerCase() === k,
+    );
+  if (clash) throw new Error("Shortcut key already in use");
+}
+
 export async function upsertTab(input: TabInput, id?: number) {
   const data = tabSchema.parse(input);
+  await assertShortcutKeyFree(data.shortcutKey, { tabId: id });
   if (id) {
     await prisma.tab.update({ where: { id }, data });
   } else {
@@ -44,6 +65,7 @@ export async function deleteSection(id: number) {
 
 export async function upsertLink(input: LinkInput, id?: number) {
   const data = linkSchema.parse(input);
+  await assertShortcutKeyFree(data.shortcutKey, { linkId: id });
   if (id) {
     await prisma.link.update({ where: { id }, data });
   } else {

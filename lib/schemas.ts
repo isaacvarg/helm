@@ -2,6 +2,8 @@ import { z } from "zod";
 
 const hex = z.string().regex(/^#([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/, "Must be a hex color like #a1b2c3");
 
+const shortcutKey = z.string().regex(/^[a-zA-Z0-9]?$/, "One letter or number");
+
 export const dashboardSchema = z
   .object({
     title: z.string().min(1).max(120),
@@ -30,6 +32,9 @@ export const dashboardSchema = z
     settingsBgColor: hex.nullable(),
     settingsBgOpacity: z.number().min(0).max(1),
     settingsBgImage: z.string().nullable(),
+    shortcutShowIndicators: z.boolean(),
+    shortcutLinkScope: z.enum(["tab", "all"]),
+    shortcutKbdSize: z.enum(["xs", "sm", "md", "lg"]),
   })
   .refine((v) => v.settingsShowIcon || v.settingsShowTitle, {
     message: "Show the settings icon or title",
@@ -68,6 +73,7 @@ export const tabSchema = z.object({
   pillTitleColor: hex.nullable(),
   pillTitleSize: z.enum(["xs", "sm", "base", "lg", "xl"]),
   pillTitleWeight: z.enum(["normal", "medium", "semibold", "bold"]),
+  shortcutKey,
 }).refine((v) => v.pillShowIcon || v.pillShowTitle, {
   message: "Show at least the pill icon or title",
 });
@@ -116,6 +122,7 @@ export const linkSchema = z
     titleSize: z.enum(["xs", "sm", "base", "lg", "xl", "2xl"]),
     titleWeight: z.enum(["normal", "medium", "semibold", "bold"]),
     textColor: hex.nullable(),
+    shortcutKey,
     order: z.number().int(),
   })
   .refine((v) => v.showIcon || v.showTitle || v.showDescription, {

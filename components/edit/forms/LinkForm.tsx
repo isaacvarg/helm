@@ -11,13 +11,14 @@ import ImageField from "../fields/ImageField";
 interface LinkFormProps {
   link: LinkData | null;
   sectionId: number;
+  takenKeys: string[];
   onDone: () => void;
 }
 
 const SECTION =
   "collapse collapse-arrow border border-base-content/10 bg-base-200/40 rounded-box [&:has(>input:checked)]:overflow-visible [&:has(>input:checked)]:z-10";
 
-const LinkForm = ({ link, sectionId, onDone }: LinkFormProps) => {
+const LinkForm = ({ link, sectionId, takenKeys, onDone }: LinkFormProps) => {
   const form = useForm({
     defaultValues: {
       sectionId: link?.sectionId ?? sectionId,
@@ -53,6 +54,7 @@ const LinkForm = ({ link, sectionId, onDone }: LinkFormProps) => {
         | "semibold"
         | "bold",
       textColor: link?.textColor ?? null,
+      shortcutKey: link?.shortcutKey ?? "",
       order: link?.order ?? 0,
     },
     validators: { onChange: linkSchema },
@@ -418,17 +420,53 @@ const LinkForm = ({ link, sectionId, onDone }: LinkFormProps) => {
         </div>
       </div>
 
+      {/* Shortcut */}
+      <div className={SECTION}>
+        <input type="checkbox" />
+        <div className="collapse-title text-sm font-medium text-base-content">
+          Shortcut
+        </div>
+        <div className="collapse-content space-y-2">
+          <form.Field name="shortcutKey">
+            {(f) => (
+              <TextField
+                label="Shortcut key"
+                value={f.state.value}
+                onChange={(v) => f.handleChange(v.slice(-1))}
+                onBlur={f.handleBlur}
+                errors={f.state.meta.errors}
+                placeholder="single letter or number"
+              />
+            )}
+          </form.Field>
+          <form.Subscribe selector={(s) => s.values.shortcutKey}>
+            {(key) =>
+              key && takenKeys.includes(key.toLowerCase()) ? (
+                <p className="text-xs text-error">Key already in use</p>
+              ) : null
+            }
+          </form.Subscribe>
+        </div>
+      </div>
+
       <div className="flex gap-2">
-        <form.Subscribe selector={(s) => [s.canSubmit, s.isSubmitting] as const}>
-          {([canSubmit, isSubmitting]) => (
-            <button
-              type="submit"
-              disabled={!canSubmit}
-              className="btn btn-primary flex-1"
-            >
-              {isSubmitting ? "Saving…" : "Save"}
-            </button>
-          )}
+        <form.Subscribe
+          selector={(s) =>
+            [s.canSubmit, s.isSubmitting, s.values.shortcutKey] as const
+          }
+        >
+          {([canSubmit, isSubmitting, key]) => {
+            const keyTaken = !!key && takenKeys.includes(key.toLowerCase());
+            return (
+              <button
+                type="submit"
+                disabled={!canSubmit || keyTaken}
+                className="btn btn-primary flex-1"
+              >
+                {isSubmitting ? "Saving…" : "Save"}
+              </button>
+            );
+          }}
         </form.Subscribe>
         {link && (
           <button

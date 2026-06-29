@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Tabs from "@/components/TabBar/Tabs";
 import EditModeToggle from "@/components/edit/EditModeToggle";
 import EditorDrawer from "@/components/edit/EditorDrawer";
+import ShortcutManager from "@/components/ShortcutManager";
 import { getDashboard } from "@/lib/getDashboard";
 
 
@@ -56,6 +57,12 @@ const Home = async () => {
       </div>
       <EditModeToggle dashboard={dashboard} />
       <EditorDrawer dashboard={dashboard} />
+      <ShortcutManager
+        tabs={dashboard.tabs}
+        showIndicators={dashboard.shortcutShowIndicators}
+        linkScope={dashboard.shortcutLinkScope}
+        kbdSize={dashboard.shortcutKbdSize}
+      />
     </Background>
   );
 };

@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "motion/react";
 import Icon from "../Icon";
+import { useShortcut } from "@/store/shortcutSlice";
 import type { LinkData } from "@/lib/types";
 
 interface BookmarkProps {
@@ -23,6 +24,13 @@ const TITLE_WEIGHT: Record<string, string> = {
   bold: "font-bold",
 };
 
+const KBD_SIZE: Record<string, string> = {
+  xs: "kbd-xs",
+  sm: "kbd-sm",
+  md: "kbd-md",
+  lg: "kbd-lg",
+};
+
 const Bookmark = ({ data }: BookmarkProps) => {
   const target = data.newTab ? "_blank" : "_self";
   const rel = data.newTab ? "noopener noreferrer" : undefined;
@@ -41,6 +49,10 @@ const Bookmark = ({ data }: BookmarkProps) => {
   const customColor = data.textColor ?? undefined;
   const textStyle = customColor ? { color: customColor } : undefined;
   const hasCustomBorder = data.borderWidth > 0;
+  const shortcutActive = useShortcut((s) => s.active);
+  const shortcutShow = useShortcut((s) => s.showIndicators);
+  const kbdSize = useShortcut((s) => s.kbdSize);
+  const showShortcut = shortcutActive && shortcutShow && !!data.shortcutKey;
 
   return (
     <motion.a
@@ -64,6 +76,13 @@ const Bookmark = ({ data }: BookmarkProps) => {
         hasCustomBg ? "" : " bg-base-content/5 hover:bg-base-content/10"
       }${iconOnly ? " justify-center" : ""}`}
     >
+      {showShortcut && (
+        <kbd
+          className={`kbd ${KBD_SIZE[kbdSize] ?? "kbd-sm"} absolute top-1/2 right-2 -translate-y-1/2 z-20 uppercase`}
+        >
+          {data.shortcutKey}
+        </kbd>
+      )}
       {data.bgImage && (
         <div
           className="absolute inset-0 bg-cover bg-center"

@@ -67,6 +67,15 @@ const DashboardForm = ({ dashboard, onDone }: DashboardFormProps) => {
       settingsBgColor: dashboard.settingsBgColor ?? null,
       settingsBgOpacity: dashboard.settingsBgOpacity ?? 1,
       settingsBgImage: dashboard.settingsBgImage ?? null,
+      shortcutShowIndicators: dashboard.shortcutShowIndicators ?? true,
+      shortcutLinkScope: (dashboard.shortcutLinkScope ?? "tab") as
+        | "tab"
+        | "all",
+      shortcutKbdSize: (dashboard.shortcutKbdSize ?? "sm") as
+        | "xs"
+        | "sm"
+        | "md"
+        | "lg",
     },
     validators: { onChange: dashboardSchema },
     onSubmit: async ({ value }) => {
@@ -516,6 +525,69 @@ const DashboardForm = ({ dashboard, onDone }: DashboardFormProps) => {
                   <option value="top">Top</option>
                   <option value="left">Left</option>
                   <option value="right">Right</option>
+                </select>
+              </label>
+            )}
+          </form.Field>
+        </div>
+      </div>
+
+      {/* Shortcuts */}
+      <div className={SECTION}>
+        <input type="checkbox" />
+        <div className="collapse-title text-sm font-medium text-base-content">
+          Shortcuts
+        </div>
+        <div className="collapse-content space-y-4">
+          <form.Field name="shortcutShowIndicators">
+            {(f) => (
+              <label className="flex items-center gap-2 text-sm text-base-content">
+                <input
+                  type="checkbox"
+                  checked={f.state.value}
+                  onChange={(e) => f.handleChange(e.target.checked)}
+                  className="checkbox checkbox-primary checkbox-sm"
+                />
+                Show shortcut indicators
+              </label>
+            )}
+          </form.Field>
+          <form.Field name="shortcutLinkScope">
+            {(f) => (
+              <label className="block space-y-1">
+                <span className="block text-xs text-base-content/60">
+                  Link shortcut scope
+                </span>
+                <select
+                  value={f.state.value}
+                  onChange={(e) =>
+                    f.handleChange(e.target.value as typeof f.state.value)
+                  }
+                  className="select select-bordered select-sm w-full"
+                >
+                  <option value="tab">Active tab only</option>
+                  <option value="all">All tabs</option>
+                </select>
+              </label>
+            )}
+          </form.Field>
+          <form.Field name="shortcutKbdSize">
+            {(f) => (
+              <label className="block space-y-1">
+                <span className="block text-xs text-base-content/60">
+                  Indicator size
+                </span>
+                <select
+                  value={f.state.value}
+                  onChange={(e) =>
+                    f.handleChange(e.target.value as typeof f.state.value)
+                  }
+                  className="select select-bordered select-sm w-full"
+                >
+                  <option value="xs">Extra small</option>
+                  <option value="sm">Small</option>
+                  <option value="md">Medium</option>
+                  <option value="lg">Large</option>
                 </select>
               </label>
             )}

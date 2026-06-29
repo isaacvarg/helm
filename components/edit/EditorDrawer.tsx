@@ -15,6 +15,13 @@ const EditorDrawer = ({ dashboard }: EditorDrawerProps) => {
   const target = useEditMode((s) => s.target);
   const { closeEditor } = useEditModeActions();
 
+  const allTabs = dashboard.tabs;
+  const allLinks = allTabs.flatMap((t) => t.sections).flatMap((s) => s.links);
+  const tabKeys = allTabs.map((t) => t.shortcutKey);
+  const linkKeys = allLinks.map((l) => l.shortcutKey);
+  const norm = (keys: string[]) =>
+    keys.filter(Boolean).map((k) => k.toLowerCase());
+
   const renderBody = () => {
     if (!target) return null;
     if (target.type === "dashboard") {
@@ -22,7 +29,11 @@ const EditorDrawer = ({ dashboard }: EditorDrawerProps) => {
     }
     if (target.type === "tab") {
       const existing = target.id ? dashboard.tabs.find((t) => t.id === target.id) : null;
-      return <TabForm tab={existing ?? null} onDone={closeEditor} />;
+      const takenKeys = norm([
+        ...linkKeys,
+        ...tabKeys.filter((_, i) => allTabs[i].id !== target.id),
+      ]);
+      return <TabForm tab={existing ?? null} takenKeys={takenKeys} onDone={closeEditor} />;
     }
     if (target.type === "section") {
       const existing = target.id
@@ -32,9 +43,20 @@ const EditorDrawer = ({ dashboard }: EditorDrawerProps) => {
     }
     if (target.type === "link") {
       const existing = target.id
-        ? dashboard.tabs.flatMap((t) => t.sections).flatMap((s) => s.links).find((l) => l.id === target.id)
+        ? allLinks.find((l) => l.id === target.id)
         : null;
-      return <LinkForm link={existing ?? null} sectionId={target.sectionId} onDone={closeEditor} />;
+      const takenKeys = norm([
+        ...tabKeys,
+        ...allLinks.filter((l) => l.id !== target.id).map((l) => l.shortcutKey),
+      ]);
+      return (
+        <LinkForm
+          link={existing ?? null}
+          sectionId={target.sectionId}
+          takenKeys={takenKeys}
+          onDone={closeEditor}
+        />
+      );
     }
     return null;
   };

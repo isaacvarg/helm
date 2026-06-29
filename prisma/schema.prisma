@@ -35,6 +35,9 @@ model Dashboard {
   settingsBgColor     String?
   settingsBgOpacity   Float   @default(1)
   settingsBgImage     String?
+  shortcutShowIndicators Boolean @default(true)
+  shortcutLinkScope      String  @default("tab")
+  shortcutKbdSize        String  @default("sm")
   tabs              Tab[]
 }
 
@@ -74,6 +77,7 @@ model Tab {
   pillTitleColor   String?
   pillTitleSize    String  @default("sm")
   pillTitleWeight  String  @default("medium")
+  shortcutKey      String  @default("")
   sections         Section[]
 }
 
@@ -121,5 +125,6 @@ model Link {
   titleSize   String @default("sm")
   titleWeight String @default("medium")
   textColor   String?
+  shortcutKey String  @default("")
   order       Int
 }

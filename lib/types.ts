@@ -26,6 +26,9 @@ export interface DashboardData {
   settingsBgColor: string | null;
   settingsBgOpacity: number;
   settingsBgImage: string | null;
+  shortcutShowIndicators: boolean;
+  shortcutLinkScope: string;
+  shortcutKbdSize: string;
   tabs: TabData[];
 }
 
@@ -63,6 +66,7 @@ export interface TabData {
   pillTitleColor: string | null;
   pillTitleSize: string;
   pillTitleWeight: string;
+  shortcutKey: string;
   sections: SectionData[];
 }
 
@@ -108,5 +112,6 @@ export interface LinkData {
   titleSize: string;
   titleWeight: string;
   textColor: string | null;
+  shortcutKey: string;
   order: number;
 }

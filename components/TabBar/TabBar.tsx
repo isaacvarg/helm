@@ -4,6 +4,7 @@ import { useHotkeys } from "react-hotkeys-hook";
 import Icon from "@/components/Icon";
 import { motion } from "motion/react";
 import { useEditMode, useEditModeActions } from "@/store/editModeSlice";
+import { useShortcut } from "@/store/shortcutSlice";
 import { LuPencil, LuPlus } from "react-icons/lu";
 import type { TabData } from "@/lib/types";
 
@@ -34,11 +35,22 @@ const WEIGHT: Record<string, string> = {
   bold: "font-bold",
 };
 
+const KBD_SIZE: Record<string, string> = {
+  xs: "kbd-xs",
+  sm: "kbd-sm",
+  md: "kbd-md",
+  lg: "kbd-lg",
+};
+
 export const TabBar = ({ tabs, position = "bottom" }: TabBarProps) => {
   const { activeTabId } = useTabBar();
   const { setActiveTab } = useTabBarActions();
   const isEditing = useEditMode((s) => s.isEditing);
   const { openEditor } = useEditModeActions();
+  const shortcutActive = useShortcut((s) => s.active);
+  const shortcutShow = useShortcut((s) => s.showIndicators);
+  const kbdSize = useShortcut((s) => s.kbdSize);
+  const showShortcuts = shortcutActive && shortcutShow;
   const vertical = position === "left" || position === "right";
 
   // Cycle tabs with Tab / Shift+Tab, overriding the browser's default focus
@@ -85,6 +97,13 @@ export const TabBar = ({ tabs, position = "bottom" }: TabBarProps) => {
 
             return (
               <div key={tab.id} className="relative group/tab">
+                {showShortcuts && tab.shortcutKey && (
+                  <kbd
+                    className={`kbd ${KBD_SIZE[kbdSize] ?? "kbd-sm"} absolute -top-2 -left-2 z-20 uppercase`}
+                  >
+                    {tab.shortcutKey}
+                  </kbd>
+                )}
                 <motion.button
                   onClick={() => setActiveTab(tab.slug)}
                   className={`relative px-6 py-3 rounded-full transition-colors duration-300 ${isActive ? "text-base-content" : "text-base-content hover:text-base-content/80"
