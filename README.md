@@ -26,12 +26,15 @@ anywhere and back up.
 ## Screenshots
 
 Pressing `SPACE` activates **Shortcut Mode**. Shortcut keys can be added to tabs/bookmarks and can be activated per tab or globally.
+
 ![Shortcuts Example](./public/examples/shortcuts-example.png)
 
 Edit `Edit Button` enables **Edit Mode**. Tabs, sections, and bookmarks can be added, removed and edited in this mode. Dashboard settings can be accessed by editing the `Title/Subtitle` block.
+
 ![Edit Mode](./public/examples/edit-example.png)
 
 Displayed are the options for editing a `Bookmark`. `Bookmark Groups`, `Dashboard`, `Tabs`, and `Tab Content` all have similarly customizable properties.
+
 ![Options Example](./public/examples/options-example.png)
 
 
