@@ -1,5 +1,7 @@
 # Helm
 
+![Showcase-1](./public/showcase/showcase-1.png)
+
 Yet another self-hosted, deeply customizable bookmark dashboard and browser start page.
 
 Helm organizes your links into tabs, sections, and bookmarks, and lets you restyle almost every pixel. You can change gradients, themes, background images, per-element
@@ -7,6 +9,7 @@ colors and borders, keyboard shortcuts, and more.
 
 Everything is stored in a local SQLite database, so it's easy to run
 anywhere and back up.
+
 
 ## Features
 
