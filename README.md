@@ -21,6 +21,20 @@ anywhere and back up.
 - **Image uploads & favicons** — upload your own images and auto-fetch site favicons for bookmarks.
 - **No external services** — all data lives in a local SQLite file.
 
+## Showcases
+
+## Screenshots
+
+Pressing `SPACE` activates **Shortcut Mode**. Shortcut keys can be added to tabs/bookmarks and can be activated per tab or globally.
+![Shortcuts Example](./public/examples/shortcuts-example.png)
+
+Edit `Edit Button` enables **Edit Mode**. Tabs, sections, and bookmarks can be added, removed and edited in this mode. Dashboard settings can be accessed by editing the `Title/Subtitle` block.
+![Edit Mode](./public/examples/edit-example.png)
+
+Displayed are the options for editing a `Bookmark`. `Bookmark Groups`, `Dashboard`, `Tabs`, and `Tab Content` all have similarly customizable properties.
+![Options Example](./public/examples/options-example.png)
+
+
 ## Getting Started with Docker
 
 Helm is published as a container image at [`ghcr.io/isaacvarg/helm`](https://github.com/isaacvarg/helm/pkgs/container/helm).
